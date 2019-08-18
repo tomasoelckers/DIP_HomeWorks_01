@@ -20,6 +20,5 @@ def convolution(image,kernel):
     return buff
 
 
-def cross_convolution_2d():
-    pass
+
 
