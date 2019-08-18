@@ -18,3 +18,8 @@ def convolution(image,kernel):
             buff[h][w] = sum(nb)
 
     return buff
+
+
+def cross_convolution_2d():
+    pass
+
