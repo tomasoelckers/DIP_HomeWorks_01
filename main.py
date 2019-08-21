@@ -1,11 +1,14 @@
 # Import the necessary packages
 import numpy as np
 import cv2
+import fire
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 
 # Load the Waldo and puzzle images
 waldo = cv2.imread('Images/wally2_1.jpg')
-puzzle = cv2.imread('Images/wally22.jpg')
+puzzle = cv2.imread('Images/wally02.jpg')
 
 # Get the shape of Waldo's face image
 (waldoHeight, waldoWidth) = waldo.shape[:2]
@@ -26,6 +29,16 @@ loc = np.where( result >= threshold)
 # Draw rectangles where is waldo
 for pixel in zip(*loc[::-1]):
     cv2.rectangle(puzzle, pixel, (pixel[0] + waldoWidth, pixel[1] + waldoHeight), (0, 0, 0), 2)
+
+# Display result matrix of cross-correlation in 3 dimensions
+result_gray = result*255
+xx, yy = np.mgrid[0:result_gray.shape[0], 0:result_gray.shape[1]]
+fig = plt.figure(figsize=(15, 15))
+ax = fig.gca(projection='3d')
+ax.plot_surface(xx, yy, result_gray, rstride=1, cstride=1, cmap='jet',linewidth=2)
+ax.view_init(80, 30)
+plt.show()
+
 
 # Display the result of the Where is Waldo? problem
 cv2.namedWindow('Where is Waldo', cv2.WINDOW_NORMAL)
