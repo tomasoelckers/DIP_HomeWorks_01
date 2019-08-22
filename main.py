@@ -1,7 +1,7 @@
 # Import the necessary packages
 import numpy as np
 import cv2
-#import fire
+import fire
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -25,28 +25,32 @@ threshold = 0.9
 loc = np.where( result >= threshold)
 
 # Get the Min and Max local of the cross-correlation normalized
-(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(result)
+#(minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(result)
 
 # Draw rectangles where is waldo
 for pixel in zip(*loc[::-1]):
     cv2.rectangle(puzzle, pixel, (pixel[0] + waldoWidth, pixel[1] + waldoHeight), (0, 0, 0), 2)
 
 # Display result matrix of cross-correlation in 3 dimensions
+'''plt.figure(1)
 result_gray = result*255
 xx, yy = np.mgrid[0:result_gray.shape[0], 0:result_gray.shape[1]]
 fig = plt.figure(figsize=(15, 15))
 ax = fig.gca(projection='3d')
 ax.plot_surface(xx, yy, result_gray, rstride=1, cstride=1, cmap='jet',linewidth=2)
 ax.view_init(80, 30)
-plt.show()
+plt.show()'''
 
 # Saving image
-cv2.imwrite('Result Images/' + DIR + '_1.jpg', puzzle)
+#cv2.imwrite('Result Images/' + DIR + '_1.jpg', puzzle)
 
 # Display the result of the Where is Waldo? problem
+'''plt.figure(2)
+plt.imshow(cv2.cvtColor(puzzle, cv2.COLOR_BGR2RGB))
+plt.show()'''
+
 cv2.namedWindow('Where is Waldo', cv2.WINDOW_NORMAL)
 cv2.resizeWindow('Where is Waldo', 800, 600)
 cv2.imshow('Where is Waldo', puzzle)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
