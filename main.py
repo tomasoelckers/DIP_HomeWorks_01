@@ -1,14 +1,15 @@
 # Import the necessary packages
 import numpy as np
 import cv2
-import fire
+#import fire
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
+DIR = 'wally22'
 
 # Load the Waldo and puzzle images
 waldo = cv2.imread('Images/wally2_1.jpg')
-puzzle = cv2.imread('Images/wally02.jpg')
+puzzle = cv2.imread('Images/'+ DIR + '.jpg')
 
 # Get the shape of Waldo's face image
 (waldoHeight, waldoWidth) = waldo.shape[:2]
@@ -39,6 +40,8 @@ ax.plot_surface(xx, yy, result_gray, rstride=1, cstride=1, cmap='jet',linewidth=
 ax.view_init(80, 30)
 plt.show()
 
+# Saving image
+cv2.imwrite('Result Images/' + DIR + '_1.jpg', puzzle)
 
 # Display the result of the Where is Waldo? problem
 cv2.namedWindow('Where is Waldo', cv2.WINDOW_NORMAL)
